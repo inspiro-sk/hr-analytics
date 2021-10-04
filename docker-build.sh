@@ -1,5 +1,5 @@
 #!/bin/bash
-imageName=rstana/api:latest
+imageName=rstana/api_serve:latest
 containerName=api_serve
 
 docker build -t $imageName -f Dockerfile  .

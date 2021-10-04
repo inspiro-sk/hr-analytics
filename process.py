@@ -3,7 +3,7 @@ import pickle
 import numpy as np
 import pandas as pd
 
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, PolynomialFeatures, OneHotEncoder
 from sklearn.model_selection import train_test_split
 
 
@@ -37,17 +37,28 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # scale numerical values
 scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X_train)
+X_train_scaled = scaler.fit_transform(X_train)
 
 scaler_dump = scaler.fit(X_train)
 
-with open('scaler.pkl', 'wb') as f:
-    pickle.dump(scaler_dump, f)
+with open('scaler.pkl', 'wb') as file:
+    pickle.dump(scaler_dump, file)
 
 X_test_scaled = scaler.transform(X_test)
 
-np.save('outputs/train_num', X_scaled)
+# develop polynomial features (as an example)
+poly = PolynomialFeatures(degree=3)
+
+X_train_poly = poly.fit_transform(X_train_scaled)
+X_test_poly = poly.transform(X_test_scaled)
+
+poly_dump = poly.fit(X_train_scaled)
+
+with open('poly.pkl', 'wb') as file:
+    pickle.dump(poly_dump, file)
+
+np.save('outputs/train_num', X_train_poly)
 np.save('outputs/train_labels', y_train)
 
-np.save('outputs/test_num', X_test_scaled)
+np.save('outputs/test_num', X_test_poly)
 np.save('outputs/test_labels', y_test)
