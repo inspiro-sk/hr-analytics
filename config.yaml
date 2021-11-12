@@ -1,0 +1,36 @@
+global_params:
+  input_file: "inputs/general_data.csv"
+  model_file: "model.pkl"
+  index_col: "EmployeeID"
+  target_col:
+    name: "Attrition_Numeric"
+    type:
+      coltype: "derived"
+      from: "Attrition"
+      from_type: "category"
+columns:
+  categorical_columns: []
+transformations:
+  drop_cols:
+    colnames: ["EmployeeCount", "StandardHours", "Over18"]
+  ignore_cols:
+    colnames: ["Attrition", "Attrition_Numeric"]
+  transformers:
+    S:
+      type: "StandardScalerTransformer"
+      columns: []
+    P:
+      type: "PolynomialFeaturesTransformer"
+      poly: 3
+    H:
+      type: "OneHotEncodingTranformer"
+      columns: []
+    I:
+      type: "ImputationTransformer"
+      columns:
+        - name: "NumCompaniesWorked"
+          strategy: "mean"
+        - name: "TotalWorkingYears"
+          strategy: "mean"
+  graph:
+    train: "S -> P"

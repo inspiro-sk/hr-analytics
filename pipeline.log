@@ -1,0 +1,11 @@
+INFO:root:--- Pipeline START ---
+INFO:root:File read into dataframe with shape: (4410, 23)
+INFO:root:*** DROP COLUMN *** EmployeeCount removed from dataframe
+INFO:root:*** DROP COLUMN *** StandardHours removed from dataframe
+INFO:root:*** DROP COLUMN *** Over18 removed from dataframe
+INFO:root:3 columns dropped from dataframe. New shape is: {(4410, 20)}
+INFO:root:Starting imputation transformation
+INFO:root:*** IMPUTE COLUMN *** NumCompaniesWorked with strategy: mean
+INFO:root:*** IMPUTE COLUMN *** TotalWorkingYears with strategy: mean
+INFO:root:Imputation completed
+INFO:root:--- Pipeline FINISH ---
