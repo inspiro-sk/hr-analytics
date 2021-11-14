@@ -19,9 +19,30 @@ class SplitterWorker:
 
         return df_cat, self.dataframe[self.dataframe.columns.difference(cat_cols)]
 
+    def create_target(self):
+        target_conf = self.target
+
+        if 'derived' in target_conf:
+            target_data = self.dataframe[target_conf['derived']['from']]
+
+            # convert Yes/No column to 1/0
+            if target_conf['derived']['as'] == 'category':
+                self.dataframe[self.target['name']] = target_data.astype(
+                    'category').cat.codes
+
+            # TODO: account for other types and add conversions as needed
+
+            # then drop original column from dataframe; only derived will be used
+            self.dataframe.drop(
+                target_conf['derived']['from'], axis=1, inplace=True)
+
+        return self.dataframe[self.target['name']]
+
     def create_train_and_test_sets(self, random_state=1, test_size=0.1):
-        features = 0
-        target = 0
+
+        target = self.create_target()
+        features = self.dataframe[self.dataframe.columns.difference(
+            [self.target['name']])]
 
         X_train, X_test, y_train, y_test = train_test_split(
             features, target, random_state=random_state, test_size=test_size)

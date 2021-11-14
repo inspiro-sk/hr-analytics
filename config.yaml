@@ -4,10 +4,9 @@ global_params:
   index_col: "EmployeeID"
   target_col:
     name: "Attrition_Numeric"
-    type:
-      coltype: "derived"
+    derived:
       from: "Attrition"
-      from_type: "category"
+      as: "category"
 columns:
   categorical_columns: []
 transformations:
