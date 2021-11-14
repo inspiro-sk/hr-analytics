@@ -14,15 +14,10 @@ def index():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    model = pickle.load(open('model.pkl', 'rb'))
-    scaler = pickle.load(open('scaler.pkl', 'rb'))
-    polynoms = pickle.load(open('poly.pkl', 'rb'))
-
     pipe = joblib.load('knn_model.joblib')
 
-    data_arr = list(data.values())
+    data_arr = list(request.json.values())
     X = np.array(data_arr).reshape(1, -1)
-
     score = pipe.predict(X)
 
     return {'result': str(score)}
