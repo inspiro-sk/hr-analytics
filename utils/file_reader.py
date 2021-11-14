@@ -1,15 +1,32 @@
+import logging
 import pandas as pd
 
 
 class FileReader():
-    def __init__(self, file_name, index_col):
-        self.file_name = file_name
-        self.index_col = index_col
+    def __init__(self, config):
+        self.config = config
+        self.input_file = self.config['global_params']['input_file']
+        self.index_col = self.config['global_params']['index_col']
 
     def read_file(self):
-        ext = self.file_name.split('.')[-1]
+        logging.info("** STEP: Importing source data into dataframe")
+
+        ext = self.input_file.split('.')[-1]
 
         if ext == 'csv':
-            df = pd.read_csv(self.file_name, index_col=self.index_col)
+            try:
+                df = pd.read_csv(self.input_file, index_col=self.index_col)
+            except:
+                message = '    Source file specified in config not found'
+
+                logging.error(message)
+                raise Exception(message)
+        else:
+            message = '    Cannot read source file.'
+            logging.error(message)
+            raise Exception(message)
+
+        logging.info("    File read into dataframe with shape: %s", df.shape)
+        logging.info("** COMPLETED STEP: Importing source data into dataframe")
 
         return df

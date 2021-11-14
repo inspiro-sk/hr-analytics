@@ -9,13 +9,13 @@ class ImputationTransformer:
         self.cols = config['transformations']['transformers']['I']['columns']
 
     def transform(self):
-        logging.info('Starting imputation transformation')
+        logging.info('** STEP: Imputation')
 
         for col in self.cols:
             col_name = col['name']
             i_strategy = col['strategy']
 
-            logging.info("*** IMPUTE COLUMN *** %s with strategy: %s",
+            logging.info("    IMPUTE COLUMN %s with strategy: %s",
                          col_name, i_strategy)
 
             if i_strategy == 'mean':
@@ -34,6 +34,6 @@ class ImputationTransformer:
                 imputation_const = col['value']
                 self.data[col_name].fillna(imputation_const, inplace=True)
 
-        logging.info("Imputation completed")
+        logging.info("** COMPLETED STEP Imputation")
 
         return self.data

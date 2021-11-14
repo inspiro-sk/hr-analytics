@@ -7,7 +7,7 @@ from pipeline import Pipe
 def main():
     logging.basicConfig(filename='pipeline.log',
                         filemode='w',
-                        level=logging.INFO,
+                        level=logging.DEBUG,
                         format='%(asctime)s - %(levelname)-8s %(message)s'
                         )
     logging.info('--- Pipeline START ---')
