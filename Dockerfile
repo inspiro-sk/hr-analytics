@@ -5,10 +5,7 @@ WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY model.pkl /app/model.pkl
-COPY scaler.pkl /app/scaler.pkl
-COPY poly.pkl /app/poly.pkl
-COPY serve.py /app/serve.py
+COPY knn_model.joblib /app/knn_model.joblib
 
 ENV FLASK_APP serve.py
 

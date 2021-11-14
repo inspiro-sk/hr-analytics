@@ -1,5 +1,5 @@
 from flask import Flask, request
-import pickle
+import joblib
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 
@@ -18,12 +18,12 @@ def predict():
     scaler = pickle.load(open('scaler.pkl', 'rb'))
     polynoms = pickle.load(open('poly.pkl', 'rb'))
 
-    data_arr = list(request.json.values())
+    pipe = joblib.load('knn_model.joblib')
 
-    X_scaled = scaler.transform(np.array(data_arr).reshape(1, -1))
-    X_poly = polynoms.transform(X_scaled)
+    data_arr = list(data.values())
+    X = np.array(data_arr).reshape(1, -1)
 
-    score = model.predict(X_poly)[0]
+    score = pipe.predict(X)
 
     return {'result': str(score)}
 
