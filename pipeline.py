@@ -1,5 +1,4 @@
-import logging
-
+from sklearn.pipeline import Pipeline
 from utils.file_reader import FileReader
 from transformers.drop_column_transformer import *
 from transformers.imputation_transformer import *
@@ -15,6 +14,7 @@ class Pipe:
         self.df = None
         self.X = None
         self.y = None
+        self.pipe = Pipeline([])
 
     def read_input(self):
         input_file = self.config['global_params']['input_file']
@@ -46,6 +46,12 @@ class Pipe:
 
         # transform numeric data into np.ndarray before transformations and then apply scaling (for now)
         data = TransformerService(df_num).to_struct_array()
+
+        scaler = StandardScalerTransformer(data, None)
+        sc_fitted = scaler.fit(data)
+        print(sc_fitted.get_params(), sc_fitted.mean_, sc_fitted.var_)
+
+        self.pipe.steps.append(['scale', sc_fitted])
 
         # TODO: create transformation pipeline (for scaling, encoding etc.)
 

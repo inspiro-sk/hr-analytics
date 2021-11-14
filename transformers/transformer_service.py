@@ -8,5 +8,5 @@ class TransformerService:
 
     def to_struct_array(self):
         # TODO: convert pandas dataframe (numeric columns) to numpy array
-        np_arr = self.dataframe.to_records()
+        np_arr = self.dataframe.to_numpy()
         return np_arr
