@@ -47,4 +47,6 @@ class Pipe:
         # transform numeric data into np.ndarray before transformations and then apply scaling (for now)
         data = TransformerService(df_num).to_struct_array()
 
+        # TODO: create transformation pipeline (for scaling, encoding etc.)
+
         # TODO: encode categorical variables
