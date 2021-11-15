@@ -1,4 +1,5 @@
 from utils.file_reader import FileReader
+from utils.sql_reader import SQLReader
 from transformers.drop_column_transformer import *
 from transformers.imputation_transformer import *
 from splitter_service.splitter_worker import *
@@ -12,6 +13,10 @@ class Pipe:
     def execute(self):
         # read file into pandas dataframe
         self.df = FileReader(self.config).read_file()
+
+        # read database table (as alternative to reading file)
+        # method will be specified in config.yaml
+        # self.df = SQLReader(self.config).query('SELECT * FROM general_data')
 
         # drop unwanted columns
         df_cols_removed = DropColumnTransformer(

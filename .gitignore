@@ -4,3 +4,4 @@
 *.pyo
 __pychache__
 *.log
+.env
