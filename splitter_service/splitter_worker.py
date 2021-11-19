@@ -1,20 +1,24 @@
 from sklearn.model_selection import train_test_split
+from num_cat_split import NumCatSplitter
 
 
 class SplitterWorker:
     def __init__(self, data, config) -> None:
         self.dataframe = data
+        self.config = config
         self.target = config['global_params']['target_col']
         self.cat_cols = config['columns']['categorical_columns']
 
     def split_dataframe(self):
-        df = self.dataframe
-        cat_cols = self.cat_cols
+        # use num_cat-split to achieve this
+        splitter = NumCatSplitter(self.dataframe, self.config)
 
-        if len(cat_cols) == 0:
-            cat_cols = list(df.dtypes[df.dtypes == 'object'].index.values)
+        if len(self.cat_cols) == 0:
+            cat_cols = splitter.get_cat_cols()
+        else:
+            cat_cols = self.cat_cols
 
-        df_cat = df[cat_cols]
+        df_cat = self.dataframe[cat_cols]
 
         return df_cat, self.dataframe[self.dataframe.columns.difference(cat_cols)]
 

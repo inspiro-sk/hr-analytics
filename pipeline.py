@@ -33,6 +33,3 @@ class Pipe:
             random_state=42, test_size=0.2)
 
         # split numeric and categorical data (before scaling and encoding)
-        num_cols, cat_cols = NumCatSplitter(
-            X_train, config=self.config).get_cols()
-        print(num_cols, cat_cols)
