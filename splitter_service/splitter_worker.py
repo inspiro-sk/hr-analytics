@@ -1,4 +1,3 @@
-from scipy.sparse.construct import rand
 from sklearn.model_selection import train_test_split
 
 

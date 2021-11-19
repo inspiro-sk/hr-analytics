@@ -3,6 +3,7 @@ from utils.sql_reader import SQLReader
 from transformers.drop_column_transformer import *
 from transformers.imputation_transformer import *
 from splitter_service.splitter_worker import *
+from splitter_service.num_cat_split import NumCatSplitter
 
 
 class Pipe:
@@ -31,8 +32,7 @@ class Pipe:
         X_train, X_test, y_train, y_test = splitter.create_train_and_test_sets(
             random_state=42, test_size=0.2)
 
-        print(X_train.shape, X_test.shape, y_train.shape,
-              y_test.shape)  # TODO: remove
-
         # split numeric and categorical data (before scaling and encoding)
-        pass
+        num_cols, cat_cols = NumCatSplitter(
+            X_train, config=self.config).get_cols()
+        print(num_cols, cat_cols)
