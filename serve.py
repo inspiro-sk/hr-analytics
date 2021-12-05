@@ -1,8 +1,6 @@
 from flask import Flask, request
 import joblib
 import numpy as np
-from sklearn.preprocessing import StandardScaler
-
 
 app = Flask(__name__)
 
