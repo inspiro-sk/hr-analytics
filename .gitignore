@@ -3,4 +3,5 @@
 *.pyc
 *.pyo
 __pychache__
+utils/__pychache__
 *.log
