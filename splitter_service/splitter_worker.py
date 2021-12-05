@@ -1,5 +1,5 @@
 from sklearn.model_selection import train_test_split
-from num_cat_split import NumCatSplitter
+from splitter_service.datatype_splitter import NumCatSplitter
 
 
 class SplitterWorker:

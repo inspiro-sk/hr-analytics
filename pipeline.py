@@ -3,7 +3,6 @@ from utils.sql_reader import SQLReader
 from transformers.drop_column_transformer import *
 from transformers.imputation_transformer import *
 from splitter_service.splitter_worker import *
-from splitter_service.num_cat_split import NumCatSplitter
 
 
 class Pipe:

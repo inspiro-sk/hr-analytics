@@ -4,6 +4,7 @@ global_params:
     port: "5432"
     database: "feast_demo"
     user: "rstana"
+  project_dir: "/Users/rstana/Python_Projects/hr-analytics"
   input_file: "inputs/general_data.csv"
   model_file: "model.pkl"
   index_col: "EmployeeID"
